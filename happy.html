@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Surprise!</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, #2c3e50, #4ca1af);
+            overflow: hidden;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+        }
+
+        /* --- TEXT --- */
+        .message {
+            position: absolute;
+            top: 10%;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.5);
+            animation: popMessage 1s 0.5s forwards;
+            z-index: 20;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: #fff;
+            text-shadow: 3px 3px 0px #ff69b4, 0 0 20px rgba(255,255,255,0.5);
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        /* --- THE CAKE --- */
+        .cake {
+            position: absolute;
+            top: 40%;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(100px);
+            animation: riseCake 2s 1.5s forwards ease-out;
+        }
+
+        .layer {
+            border-radius: 10px;
+            position: relative;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+        
+        .layer-bottom { width: 120px; height: 50px; background: #D2691E; z-index: 1; }
+        .layer-middle { width: 100px; height: 45px; background: #8B4513; z-index: 2; margin-bottom: -5px; }
+        .layer-top { width: 80px; height: 40px; background: #FFB6C1; z-index: 3; margin-bottom: -5px; }
+
+        .layer::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 12px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 10px 10px 0 0;
+        }
+
+        .candles {
+            display: flex; position: absolute; bottom: 100%; gap: 15px; margin-bottom: -5px;
+        }
+        .candle {
+            width: 8px; height: 30px; background: linear-gradient(to right, #ffeb3b, #ffc107); border-radius: 2px; position: relative;
+        }
+        .flame {
+            position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 12px; height: 18px;
+            background: #ff5722; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: flicker 0.15s infinite alternate; box-shadow: 0 0 10px #ff5722; transition: opacity 0.5s;
+        }
+
+        /* --- BOTTOM CONTAINER --- */
+        .bottom-container {
+            position: absolute; bottom: 50px; z-index: 10;
+            display: flex; align-items: flex-end; gap: 50px;
+        }
+
+        /* --- THE BOX --- */
+        .lid {
+            width: 180px; height: 30px; background: linear-gradient(135deg, #e74c3c, #c0392b);
+            border-radius: 10px; position: absolute; bottom: 140px; z-index: 12;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2); transform-origin: bottom left;
+            animation: openLid 1s 1s forwards;
+        }
+        .lid::after { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 40px; height: 100%; background: #f1c40f; }
+        
+        .box-body {
+            width: 180px; height: 140px; background: linear-gradient(135deg, #e74c3c, #c0392b);
+            position: relative; border-radius: 10px; z-index: 11; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .box-body::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 40px; height: 100%; background: #f1c40f; }
+
+        /* --- BUTTON --- */
+        .blow-btn {
+            padding: 15px 40px; font-size: 1.3rem;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            border: 3px solid white; border-radius: 50px;
+            color: #d63384; font-weight: bold; cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            text-decoration: none; /* Makes it look like a button but acts like a link */
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .blow-btn:hover { transform: scale(1.1); background: white; }
+
+        /* --- BALLOONS --- */
+        .balloon {
+            position: absolute; bottom: -150px; width: 50px; height: 60px;
+            border-radius: 50% 50% 50% 50%; z-index: 1; opacity: 0.9;
+        }
+        .balloon::after { content: ''; position: absolute; bottom: -50px; left: 50%; transform: translateX(-50%); width: 1px; height: 50px; background: rgba(255,255,255,0.5); }
+
+        @keyframes popMessage { 0% { opacity: 0; transform: scale(0.5); } 80% { transform: scale(1.1); } 100% { opacity: 1; transform: scale(1); } }
+        @keyframes openLid { 0% { transform: rotate(0deg); } 100% { transform: rotate(-130deg) translateX(-30px); } }
+        @keyframes riseCake { 0% { opacity: 0; transform: translateY(100px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes floatBalloon { 0% { transform: translateY(0) rotate(0deg); opacity: 0.9; } 100% { transform: translateY(-120vh) rotate(15deg); opacity: 0; } }
+        @keyframes flicker { 0% { transform: translateX(-50%) scale(1); } 100% { transform: translateX(-50%) scale(0.8); } }
+    </style>
+</head>
+<body>
+
+    <div class="message"><h1>Happy Birthday!</h1></div>
+
+    <div class="cake">
+        <div class="candles">
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+        </div>
+        <div class="layer layer-top"></div>
+        <div class="layer layer-middle"></div>
+        <div class="layer layer-bottom"></div>
+    </div>
+
+    <div class="bottom-container">
+        <div class="box-container">
+            <div class="lid"></div>
+            <div class="box-body"></div>
+        </div>
+        
+        <!-- THIS BUTTON LINKS TO THE SECOND FILE -->
+        <a href="wish.html" class="blow-btn">Blow the Candle</a>
+    </div>
+
+    <script>
+        // Balloon Generator
+        const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#FF69B4', '#9B59B6'];
+        function createBalloon() {
+            const balloon = document.createElement('div');
+            balloon.classList.add('balloon');
+            balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            balloon.style.left = Math.random() * 100 + 'vw';
+            balloon.style.width = Math.random() * 30 + 40 + 'px';
+            balloon.style.height = Math.random() * 30 + 40 + 'px';
+            const dur = Math.random() * 5 + 4;
+            balloon.style.animation = `floatBalloon ${dur}s linear forwards`;
+            document.body.appendChild(balloon);
+            setTimeout(() => balloon.remove(), dur * 1000);
+        }
+        for(let i=0; i<10; i++) setTimeout(createBalloon, i * 200);
+        setInterval(createBalloon, 500);
+    </script>
+</body>
+</html>

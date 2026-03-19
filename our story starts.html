@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Our Time Together</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(to right, #e0c3fc, #8ec5fc); /* Pastel gradient background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+  }
+  
+  .main-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px;
+    justify-content: center;
+  }
+
+  .section {
+    background-color: #f8f0fc;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    min-width: 250px;
+    max-width: 350px;
+    text-align: center;
+    position: relative;
+  }
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 5px;
+    color: #4a4a4a;
+  }
+
+  p {
+    font-size: 14px;
+    margin-bottom: 15px;
+    color: #6a6a6a;
+  }
+
+  /* Counters container */
+  .counters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  /* Individual counter card */
+  .counter {
+    background-color: #fde2e2;
+    padding: 15px;
+    border-radius: 15px;
+    width: 70px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  .counter span {
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #ff6f91;
+  }
+
+  /* Heart icon */
+  .heart {
+    font-size: 40px;
+    color: #ff6f91;
+    margin: 10px 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="main-container">
+  <!-- Section for "As Friends" -->
+  <div class="section" id="friendsSection">
+    <h2>Our Time Together</h2>
+    <p>As Friends</p>
+    <div class="counters" id="friendsCounters">
+      <!-- Counters will be inserted here -->
+    </div>
+    <div class="heart">❤️</div>
+  </div>
+
+  <!-- Section for "As a Couple" -->
+  <div class="section" id="coupleSection">
+    <h2>Our Time Together</h2>
+    <p>As a Couple</p>
+    <div class="counters" id="coupleCounters">
+      <!-- Counters will be inserted here -->
+    </div>
+    <div class="heart">❤️</div>
+  </div>
+</div>
+
+<script>
+  // Start dates for counters
+  const startDates = {
+    friends: new Date('2019-01-01'),
+    couple: new Date('2024-08-10')
+  };
+
+  // Elements for counters
+  const friendsContainer = document.getElementById('friendsCounters');
+  const coupleContainer = document.getElementById('coupleCounters');
+
+  // Initialize counters structure
+  function createCounterElements(container) {
+    const labels = ['Years', 'Months', 'Days'];
+    return labels.map(label => {
+      const card = document.createElement('div');
+      card.className = 'counter';
+
+      const valueSpan = document.createElement('span');
+      valueSpan.textContent = '0';
+
+      const labelSpan = document.createElement('span');
+      labelSpan.textContent = label;
+
+      card.appendChild(valueSpan);
+      card.appendChild(labelSpan);
+      container.appendChild(card);
+      return valueSpan;
+    });
+  }
+
+  const friendsCounters = createCounterElements(friendsContainer);
+  const coupleCounters = createCounterElements(coupleContainer);
+
+  // Function to calculate elapsed time
+  function updateCounters() {
+    const now = new Date();
+
+    // Helper function to get difference in years, months, days
+    function getElapsed(startDate, endDate) {
+      let years = endDate.getFullYear() - startDate.getFullYear();
+      let months = endDate.getMonth() - startDate.getMonth();
+      let days = endDate.getDate() - startDate.getDate();
+
+      if (days < 0) {
+        months -= 1;
+        days += new Date(endDate.getFullYear(), endDate.getMonth(), 0).getDate(); // days in previous month
+      }
+      if (months < 0) {
+        years -= 1;
+        months += 12;
+      }
+      return { years, months, days };
+    }
+
+    // Calculate for "As Friends"
+    const friendsElapsed = getElapsed(startDates.friends, now);
+    // Calculate for "As a Couple"
+    const coupleElapsed = getElapsed(startDates.couple, now);
+
+    // Update counters
+    friendsCounters[0].textContent = friendsElapsed.years;
+    friendsCounters[1].textContent = friendsElapsed.months;
+    friendsCounters[2].textContent = friendsElapsed.days;
+
+    coupleCounters[0].textContent = coupleElapsed.years;
+    coupleCounters[1].textContent = coupleElapsed.months;
+    coupleCounters[2].textContent = coupleElapsed.days;
+  }
+
+  // Initial update
+  updateCounters();
+
+  // Update every day at midnight (or every second for real-time updates)
+  setInterval(updateCounters, 1000);
+</script>
+<script>
+  // Redirect to a new page after 5 seconds
+  setTimeout(function() {
+    window.location.href = "new.html"; // Change this to your desired URL or filename
+  }, 5000);
+</script>
+</body>
+</html>

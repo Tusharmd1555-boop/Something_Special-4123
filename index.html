@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Love Surprise</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    /* Pink gradient background */
+    background: linear-gradient(135deg, #ffe6f0, #ffd6f0);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Love heart with beating animation */
+  .love {
+    font-size: 10em;
+    color: #ff69b4;
+    animation: beat 1s infinite;
+  }
+
+  @keyframes beat {
+    0%, 100% {
+      transform: scale(1);
+      text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
+    }
+    50% {
+      transform: scale(1.2);
+      text-shadow: 0 0 20px #fff, 0 0 40px #ff69b4;
+    }
+  }
+
+  /* Loading bar container */
+  .loading-container {
+    width: 80%;
+    max-width: 400px;
+    height: 20px;
+    background-color: #ffe6f0;
+    border-radius: 10px;
+    margin-top: 30px;
+    overflow: hidden;
+  }
+
+  /* Loading bar fill */
+  .loading-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #ff69b4;
+    animation: load 3s forwards;
+  }
+
+  @keyframes load {
+    from { width: 0%; }
+    to { width: 100%; }
+  }
+
+  /* Message below the loading bar */
+  .message {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.2em;
+    color: rgb(113, 30, 107); /* Text color set to pink */
+    padding: 0 20px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Love Heart -->
+<div class="love">♥</div>
+
+<!-- Loading Bar -->
+<div class="loading-container">
+  <div class="loading-bar"></div>
+</div>
+
+<!-- Message below the loading bar -->
+<div class="white-box">
+  <div class="box-text">Taking a deep breath my love, there is a surprise for you.....</div>
+</div>
+<div>
+<a href="petals.html" class="Redirect"></a>
+</div>
+<script>
+  // Redirect to a new page after 3 seconds
+  setTimeout(function() {
+    window.location.href = "petals.html"; // Change this to your desired URL or filename
+  }, 3000);
+</script>
+
+</body>
+</html>

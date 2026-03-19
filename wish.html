@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make a Wish</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
+            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: #ff69b4;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: popIn 1s ease-out;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.5rem;
+            color: #555;
+            margin-top: 20px;
+            animation: fadeIn 2s 1s forwards;
+            opacity: 0;
+        }
+
+        /* Confetti Animation */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            animation: fall linear forwards;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            80% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Make a Wish! 🌟</h1>
+    <p>Your dreams are waiting to come true...</p>
+
+    <script>
+        // Simple confetti generator
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            
+            // Random properties
+            const colors = ['#ff69b4', '#ffdd55', '#55ddff', '#ff5555', '#88ff88'];
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.width = Math.random() * 10 + 5 + 'px';
+            confetti.style.height = Math.random() * 10 + 5 + 'px';
+            
+            const duration = Math.random() * 3 + 2;
+            confetti.style.animationDuration = duration + 's';
+            
+            document.body.appendChild(confetti);
+
+            setTimeout(() => confetti.remove(), duration * 1000);
+        }
+
+        // Burst of confetti
+        for(let i=0; i<50; i++) {
+            setTimeout(createConfetti, i * 50);
+        }
+    </script>
+    <script>
+  // Redirect to a new page after 10 seconds
+  setTimeout(function() {
+    window.location.href = "our story.html"; // Change this to your desired URL or filename
+  }, 4000);
+</script>
+</body>
+</html>

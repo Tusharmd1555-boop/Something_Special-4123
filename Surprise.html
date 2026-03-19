@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Question Page with Link</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ffccd5, #ffe6f0);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    position: relative;
+  }
+
+  /* Heart animation styles (same as previous page) */
+  .heart {
+    position: absolute;
+    top: -50px;
+    font-size: 24px;
+    color: pink;
+    opacity: 0.8;
+    animation-name: fall;
+    animation-timing-function: linear;
+  }
+
+  @keyframes fall {
+    to {
+      transform: translateY(110vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  /* White box styles */
+  .white-box {
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Text inside the box */
+  .box-text {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  /* Link styled as button */
+  .link-button {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    background-color: pink;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+
+  .link-button:hover {
+    background-color: #ff69b4;
+  }
+</style>
+</head>
+<body>
+
+<!-- Heart animation generator (same as previous page) -->
+<script>
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.innerHTML = '♥';
+
+    // Random horizontal position
+    heart.style.left = Math.random() * 100 + 'vw';
+
+    // Random size
+    const size = Math.random() * 10 + 20; // 20px to 30px
+    heart.style.fontSize = size + 'px';
+
+    // Random animation duration
+    const duration = Math.random() * 5 + 5; // 5s to 10s
+    heart.style.animationDuration = duration + 's';
+
+    // Random delay
+    const delay = Math.random() * 2; // up to 2s
+    heart.style.animationDelay = delay + 's';
+
+    document.body.appendChild(heart);
+
+    // Remove after animation
+    setTimeout(() => {
+      heart.remove();
+    }, (duration + 1) * 1000);
+  }
+
+  // Generate hearts continuously
+  setInterval(createHeart, 300);
+  // Generate initial hearts
+  for (let i = 0; i < 10; i++) {
+    createHeart();
+  }
+</script>
+
+<!-- White box with text, emojis, and link button -->
+<div class="white-box">
+  <div class="box-text">😊 At first, I want to ask you Something before we go ahead...</div>
+  <a href="can you mine.html" class="link-button">👉 Click here to know</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Celebration with Fireworks, Balloons, and Love</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    /* Pink gradient background for celebration mood */
+    background: linear-gradient(135deg, #ffe6f0, #ffd6f0);
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    position: relative;
+  }
+
+  /* Fireworks with animated gradient */
+  .firework {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, #ff0, #f00);
+    border-radius: 50%;
+    opacity: 0;
+    animation: explode 1s forwards;
+  }
+
+  @keyframes explode {
+    0% {
+      opacity: 1;
+      transform: translate(0, 0) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(var(--dx), var(--dy)) scale(2);
+    }
+  }
+
+  /* Balloons with animated gradient - color will be set dynamically inline */
+  .balloon {
+    position: absolute;
+    bottom: -100px;
+    width: 40px;
+    height: 60px;
+    border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+    opacity: 0.8;
+    animation: floatUp 15s linear forwards;
+  }
+
+  @keyframes floatUp {
+    0% {
+      bottom: -100px;
+      opacity: 0.8;
+      transform: translateX(0);
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      bottom: 110%;
+      opacity: 0;
+      transform: translateX(var(--xshift));
+    }
+  }
+
+  /* Love hearts with animated gradient */
+  .heart {
+    position: absolute;
+    font-size: 24px;
+    background: linear-gradient(135deg, #ff69b4, #ff1493);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    opacity: 0.8;
+    animation: fall 4s linear forwards;
+  }
+
+  @keyframes fall {
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) scale(0.5);
+      opacity: 0;
+    }
+  }
+
+  /* Container for the message and emojis in the middle */
+  .center-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Emoji styles for above and below */
+  .emoji {
+    font-size: 2.5em;
+    margin: 10px 0;
+  }
+
+  /* Main message style with animation */
+  .main-text {
+    font-size: 3em;
+    font-weight: bold;
+    color: #ff69b4;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
+    }
+    50% {
+      text-shadow: 0 0 20px #fff, 0 0 40px #ff69b4;
+    }
+  }
+
+  /* Style for the "Want more?" button */
+  .more-button {
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 1.2em;
+    background-color: #ff69b4;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: background-color 0.3s, transform 0.2s;
+  }
+
+  .more-button:hover {
+    background-color: #ff85c1;
+    transform: scale(1.05);
+  }
+</style>
+</head>
+<body>
+
+<!-- Container with emojis above and below the message -->
+<div class="center-container">
+  <div class="emoji">🎉🎈✨</div> <!-- Emoji above -->
+  <div class="main-text">Happy Birthday Hemal!!!!!</div> <!-- Main message -->
+  <div class="emoji">🎂🎁🎊</div> <!-- Emoji below -->
+  <!-- "Want more?" button linking to another HTML page -->
+  <a href="want more.html" style="text-decoration: none;">
+    <button class="more-button">Want more?</button>
+  </a>
+</div>
+
+<!-- Script to generate fireworks -->
+<script>
+  function createFirework() {
+    const fireworkCount = Math.floor(Math.random() * 3) + 1; // 1-3 fireworks at once
+    for (let i = 0; i < fireworkCount; i++) {
+      const fw = document.createElement('div');
+      fw.className = 'firework';
+      fw.style.left = Math.random() * 100 + 'vw';
+      fw.style.top = Math.random() * 40 + 'vh';
+      const dx = (Math.random() - 0.5) * 200 + 'px';
+      const dy = (Math.random() - 0.5) * 200 + 'px';
+      fw.style.setProperty('--dx', dx);
+      fw.style.setProperty('--dy', dy);
+      document.body.appendChild(fw);
+      setTimeout(() => fw.remove(), 1000);
+    }
+  }
+
+  setInterval(createFirework, 800);
+</script>
+
+<!-- Script to generate balloons with multicolor gradients -->
+<script>
+  const balloonColors = [
+    'linear-gradient(135deg, #ff6f61, #ffcc70)',
+    'linear-gradient(135deg, #6a11cb, #2575fc)',
+    'linear-gradient(135deg, #f7971e, #ffd200)',
+    'linear-gradient(135deg, #00c3ff, #ffff1c)',
+    'linear-gradient(135deg, #ff4e50, #f9d423)',
+    'linear-gradient(135deg, #43cea2, #185a9d)',
+  ];
+
+  function createBalloon() {
+    const balloon = document.createElement('div');
+    balloon.className = 'balloon';
+    // Random horizontal position
+    balloon.style.left = Math.random() * 90 + 'vw';
+    // Assign a random gradient color from the array
+    const colorIndex = Math.floor(Math.random() * balloonColors.length);
+    balloon.style.background = balloonColors[colorIndex];
+    // Random X shift for drifting
+    balloon.style.setProperty('--xshift', (Math.random() - 0.5) * 200 + 'px');
+    document.body.appendChild(balloon);
+    setTimeout(() => balloon.remove(), 15000);
+  }
+
+  setInterval(createBalloon, 500);
+</script>
+
+<!-- Script to generate love hearts with gradient -->
+<script>
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.innerHTML = '♥';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.top = '0px';
+    // Optional: add gradient effect to hearts
+    heart.style.background = 'linear-gradient(135deg, #ff69b4, #ff1493)';
+    heart.style.backgroundClip = 'text';
+    heart.style.webkitBackgroundClip = 'text';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 4000);
+  }
+
+  setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>

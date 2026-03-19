@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flower Blooming For You</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to bottom, #a8edea 0%, #fed6e3 100%); /* Sky to Pink gradient */
+            overflow: hidden;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* Container for the whole flower */
+        .flower-container {
+            position: relative;
+            width: 200px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        /* The Stem */
+        .stem {
+            position: absolute;
+            bottom: 0;
+            width: 6px;
+            height: 0;
+            background-color: #4CAF50;
+            border-radius: 3px;
+            animation: growStem 2s forwards;
+            z-index: 0;
+        }
+
+        /* The Flower Head (Petals Container) */
+        .flower-head {
+            position: absolute;
+            top: 20px;
+            width: 120px;
+            height: 120px;
+            transform: scale(0); /* Start hidden */
+            animation: appear 1s 2s forwards; /* Delay until stem grows */
+        }
+
+        /* Individual Petals */
+        .petal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 80px;
+            background: radial-gradient(circle at 50% 80%, #ff69b4, #ff1493);
+            border-radius: 50% 50% 40% 40%;
+            transform-origin: bottom center;
+            opacity: 0;
+            box-shadow: inset -5px -5px 10px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Animation Logic for Petals */
+        /* We rotate each petal to a specific position and animate the scale/rotation */
+        
+        /* Center Bud */
+        .petal:nth-child(1) { animation: bloomCenter 1s 2.5s forwards; z-index: 10; }
+        
+        /* Middle Ring */
+        .petal:nth-child(2) { transform: rotate(0deg); animation: bloomMiddle 1s 2.8s forwards; z-index: 5; }
+        .petal:nth-child(3) { transform: rotate(72deg); animation: bloomMiddle 1s 2.9s forwards; z-index: 5; }
+        .petal:nth-child(4) { transform: rotate(144deg); animation: bloomMiddle 1s 3.0s forwards; z-index: 5; }
+        .petal:nth-child(5) { transform: rotate(216deg); animation: bloomMiddle 1s 3.1s forwards; z-index: 5; }
+        .petal:nth-child(6) { transform: rotate(288deg); animation: bloomMiddle 1s 3.2s forwards; z-index: 5; }
+
+        /* Outer Ring */
+        .petal:nth-child(7) { transform: rotate(36deg); animation: bloomOuter 1s 3.5s forwards; z-index: 1; opacity: 0.8; }
+        .petal:nth-child(8) { transform: rotate(108deg); animation: bloomOuter 1s 3.6s forwards; z-index: 1; opacity: 0.8; }
+        .petal:nth-child(9) { transform: rotate(180deg); animation: bloomOuter 1s 3.7s forwards; z-index: 1; opacity: 0.8; }
+        .petal:nth-child(10) { transform: rotate(252deg); animation: bloomOuter 1s 3.8s forwards; z-index: 1; opacity: 0.8; }
+        .petal:nth-child(11) { transform: rotate(324deg); animation: bloomOuter 1s 3.9s forwards; z-index: 1; opacity: 0.8; }
+
+        /* The Center of the flower */
+        .center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 30px;
+            height: 30px;
+            background: #ffe066;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            z-index: 20;
+            box-shadow: 0 0 10px rgba(255, 224, 102, 0.8);
+            animation: popIn 0.5s 4s forwards;
+        }
+
+        /* Leaves */
+        .leaf {
+            position: absolute;
+            bottom: 20px;
+            width: 40px;
+            height: 20px;
+            background: #4CAF50;
+            border-radius: 0 100% 0 100%;
+            transform: scale(0);
+            animation: growLeaf 1s forwards;
+        }
+        .leaf.left { left: 20px; animation-delay: 1.5s; transform: rotate(-30deg); }
+        .leaf.right { right: 20px; animation-delay: 1.8s; transform: rotate(30deg) scaleX(-1); }
+
+        /* Text Message */
+        .message {
+            margin-top: 40px;
+            font-size: 2rem;
+            color: #d63384;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s 4s forwards;
+        }
+
+        /* Keyframes */
+        @keyframes growStem {
+            to { height: 150px; }
+        }
+
+        @keyframes appear {
+            to { transform: scale(1); }
+        }
+
+        @keyframes bloomCenter {
+            0% { opacity: 0; transform: translate(-50%, -50%) rotate(0deg) scale(0); }
+            100% { opacity: 1; transform: translate(-50%, -50%) rotate(0deg) scale(0.8); }
+        }
+
+        @keyframes bloomMiddle {
+            0% { opacity: 0; transform: translate(-50%, -50%) rotate(var(--r, 0deg)) scale(0); }
+            100% { opacity: 1; transform: translate(-50%, -50%) translateY(-20px) rotate(var(--r, 0deg)) scale(1); }
+        }
+        
+        /* Note: We use JS or complex CSS for rotation, simplified here for readability in the animation property directly above */
+        
+        @keyframes bloomOuter {
+            0% { opacity: 0; transform: translate(-50%, -50%) rotate(var(--r, 0deg)) scale(0); }
+            100% { opacity: 0.9; transform: translate(-50%, -50%) translateY(-35px) rotate(var(--r, 0deg)) scale(1.2); }
+        }
+
+        @keyframes growLeaf {
+            to { transform: scale(1); }
+        }
+
+        @keyframes popIn {
+            to { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Floating particles */
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff69b4;
+            border-radius: 50%;
+            opacity: 0;
+            animation: float 4s infinite;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="flower-container">
+        <!-- Stem -->
+        <div class="stem"></div>
+        
+        <!-- Leaves -->
+        <div class="leaf left"></div>
+        <div class="leaf right"></div>
+
+        <!-- Flower Head -->
+        <div class="flower-head">
+            <!-- We need multiple petals -->
+            <div class="petal"></div> <!-- Center -->
+            <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div> <!-- Middle Ring -->
+            <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div> <!-- Outer Ring -->
+            
+            <div class="center"></div>
+        </div>
+    </div>
+
+    <div class="message">The flower is blooming for you 🌸</div>
+
+    <script>
+        // Script to fix CSS variable rotation issue for pure CSS approach above
+        // This ensures the petals rotate correctly around the center
+        const petals = document.querySelectorAll('.petal');
+        
+        // Center petal
+        petals[0].style.setProperty('--r', '0deg');
+        
+        // Middle Ring (Indices 1-5)
+        const middleAngles = [0, 72, 144, 216, 288];
+        for(let i = 1; i <= 5; i++) {
+            petals[i].style.setProperty('--r', middleAngles[i-1] + 'deg');
+            // Manually override keyframe logic because CSS variables in keyframes can be tricky in some browsers
+            const angle = middleAngles[i-1];
+            petals[i].style.animation = 'none'; // Reset
+            petals[i].style.offsetHeight; /* trigger reflow */
+            petals[i].style.animation = `bloomMiddle 1s ${2.8 + (i*0.1)}s forwards`;
+            petals[i].style.transform = `rotate(${angle}deg)`; 
+        }
+
+        // Outer Ring (Indices 6-10)
+        const outerAngles = [36, 108, 180, 252, 324];
+        for(let i = 6; i <= 10; i++) {
+            const angle = outerAngles[i-6];
+            petals[i].style.animation = 'none';
+            petals[i].style.offsetHeight;
+            petals[i].style.animation = `bloomOuter 1s ${3.5 + ((i-6)*0.1)}s forwards`;
+            petals[i].style.transform = `rotate(${angle}deg)`;
+        }
+
+        // Add floating sparkles in background
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            sparkle.style.left = Math.random() * 100 + 'vw';
+            sparkle.style.top = Math.random() * 100 + 'vh';
+            
+            const size = Math.random() * 10 + 5;
+            sparkle.style.width = size + 'px';
+            sparkle.style.height = size + 'px';
+            sparkle.style.background = Math.random() > 0.5 ? '#ff69b4' : '#ffe066';
+            
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => {
+                sparkle.remove();
+            }, 4000);
+        }
+
+        setInterval(createSparkle, 500);
+
+    </script>
+    <script>
+  // Redirect to a new page after 10 seconds
+  setTimeout(function() {
+    window.location.href = "Birthday.html"; // Change this to your desired URL or filename
+  }, 6000);
+</script>
+</body>
+</html>

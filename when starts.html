@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Our Special Story</title>
+<style>
+  /* Body with pink gradient background */
+  body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+    background: linear-gradient(to right, #ffb6c1, #ff69b4); /* pink gradient */
+    position: relative;
+  }
+
+  /* Container for falling hearts */
+  .hearts-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* allow clicks through hearts */
+    z-index: 0;
+  }
+
+  /* Heart style and animation */
+  .heart {
+    position: absolute;
+    font-size: 24px;
+    color: rgba(255, 20, 147, 0.7);
+    top: -50px;
+    user-select: none;
+    animation-name: fall;
+    animation-timing-function: linear;
+  }
+
+  @keyframes fall {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(110vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  /* Centered container for message box */
+  .centered-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Card styles */
+  .card {
+    padding: 30px;
+    background-color: #f9d7ed;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+  }
+
+  /* Circular Image container */
+  .profile-img {
+    width: 120px;
+    height: 120px;
+    background-color: #fff;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 20px;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Profile image styling */
+  .profile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Text styles */
+  #dynamicText {
+    font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+    font-size: 20px;
+    color: #d6336c;
+    margin: 10px 0;
+  }
+
+  /* Constant part of message */
+  #constantPart {
+    display: inline;
+  }
+
+  /* Changing part of message */
+  #changingPart {
+    display: inline;
+  }
+
+  /* Button styles */
+  .btn {
+    background-color: #d6336c;
+    color: #fff;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn:hover {
+    background-color: #a83258;
+    transform: scale(1.05);
+  }
+
+  /* Arrow icon inside button */
+  .btn::after {
+    content: "→";
+    margin-left: 10px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<!-- Container for falling hearts -->
+<div class="hearts-container" id="heartsContainer"></div>
+
+<!-- Centered message box -->
+<div class="centered-container">
+  <div class="card">
+    <!-- Circular Image -->
+    <div class="profile-img">
+      <img src="https://images.stockcake.com/public/d/7/d/d7d85572-e9d6-4ba5-9c84-90bf2e125a9a_large/sunset-holding-hands-stockcake.jpg" alt="Profile" />
+    </div>
+
+    <!-- Dynamic message -->
+    <div id="dynamicText">
+      <span id="constantPart">Hey handsome! You are my </span><span id="changingPart">love</span>
+    </div>
+
+    <!-- Link button to another HTML -->
+    <a href="our story starts.html" class="btn">Open Our Story</a>
+  </div>
+</div>
+
+<script>
+  // Generate falling hearts
+  const heartsContainer = document.getElementById('heartsContainer');
+
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.innerHTML = '❤️';
+
+    const size = Math.random() * 12 + 12; // size between 12px and 24px
+    const positionX = Math.random() * 100; // percentage
+    const duration = Math.random() * 5 + 5; // duration between 5-10 seconds
+    const delay = Math.random() * 5; // delay before starting
+
+    heart.style.left = `${positionX}%`;
+    heart.style.fontSize = `${size}px`;
+    heart.style.animationDuration = `${duration}s`;
+    heart.style.animationDelay = `${delay}s`;
+
+    heartsContainer.appendChild(heart);
+
+    heart.addEventListener('animationend', () => {
+      if (heartsContainer.contains(heart)) {
+        heartsContainer.removeChild(heart);
+      }
+    });
+  }
+
+  setInterval(createHeart, 300);
+
+  // Change the last word every 2 seconds
+  const words = ['love', 'life', 'happiness', 'joy'];
+  let index = 0;
+
+  const changingPart = document.getElementById('changingPart');
+
+  setInterval(() => {
+    changingPart.textContent = words[index];
+    index = (index + 1) % words.length;
+  }, 1000);
+</script>
+
+</body>
+</html>

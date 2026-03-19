@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Colorful Love & Balloon Celebration</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ffe6f0, #ffd6f0);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Balloons styles */
+  .balloon {
+    position: absolute;
+    width: 40px;
+    height: 60px;
+    border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+    background-color: red;
+    opacity: 0.8;
+    bottom: -100px;
+    animation: floatUp 10s linear forwards;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    font-size: 24px;
+  }
+
+  /* Different colors for balloons */
+  .balloon:nth-child(1) { background-color: #FF6F61; }
+  .balloon:nth-child(2) { background-color: #6B5B95; }
+  .balloon:nth-child(3) { background-color: #88B04B; }
+  .balloon:nth-child(4) { background-color: #F7CAC9; }
+  .balloon:nth-child(5) { background-color: #405a8d; }
+  .balloon:nth-child(6) { background-color: #F7786B; }
+  .balloon:nth-child(7) { background-color: #C94F83; }
+
+  @keyframes floatUp {
+    0% {
+      transform: translateY(0) translateX(0);
+      opacity: 0;
+    }
+    50% {
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(-800px) translateX(var(--x));
+      opacity: 0;
+    }
+  }
+
+  /* Hearts for burst effect */
+  .heart {
+    position: absolute;
+    font-size: 24px;
+    color: pink;
+    opacity: 0.8;
+    animation: floatOut 2s forwards;
+  }
+
+  @keyframes floatOut {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(var(--x), var(--y));
+      opacity: 0;
+    }
+  }
+
+  /* Confetti styles for celebration */
+  .confetti {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: #ff69b4;
+    opacity: 0.8;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    animation: confettiFall 3s linear forwards;
+  }
+
+  @keyframes confettiFall {
+    0% {
+      transform: translate(0, 0) rotate(45deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(var(--x), var(--y)) rotate(720deg);
+      opacity: 0;
+    }
+  }
+
+  /* White box styles */
+  .white-box {
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Text inside box */
+  .box-text {
+    font-size: 20px;
+    color: #8e2f7b;
+    margin-bottom: 20px;
+  }
+
+  /* Button style */
+  .link-button {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    background-color: rgb(225, 134, 149);
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+
+  .link-button:hover {
+    background-color: #7f1b85;
+  }
+</style>
+</head>
+<body>
+
+<script>
+  // Generate colorful balloons
+  function createBalloons(count) {
+    for (let i = 0; i < count; i++) {
+      const balloon = document.createElement('div');
+      balloon.className = 'balloon';
+
+      // Random start x position
+      balloon.style.left = Math.random() * 100 + 'vw';
+
+      // Random horizontal drift
+      balloon.style.setProperty('--x', (Math.random() * 200 - 100) + 'px');
+
+      // Delay start time for variation
+      balloon.style.animationDelay = (Math.random() * 2) + 's';
+
+      document.body.appendChild(balloon);
+
+      // Remove after animation
+      setTimeout(() => balloon.remove(), 10000);
+    }
+  }
+
+  // Generate confetti particles
+  function createConfetti() {
+    for (let i = 0; i < 50; i++) {
+      const confetti = document.createElement('div');
+      confetti.className = 'confetti';
+
+      const angle = Math.random() * 2 * Math.PI;
+      const distance = Math.random() * 200 + 100;
+      const x = Math.cos(angle) * distance + 'px';
+      const y = Math.sin(angle) * distance + 'px';
+
+      confetti.style.setProperty('--x', x);
+      confetti.style.setProperty('--y', y);
+
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 3000);
+    }
+  }
+
+  // Generate bursting hearts
+  function createHeartsBurst(count) {
+    const box = document.querySelector('.white-box');
+    const boxRect = box.getBoundingClientRect();
+    const startX = boxRect.left + boxRect.width / 2;
+    const startY = boxRect.top + boxRect.height / 2;
+
+    for (let i = 0; i < count; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = '♥';
+
+      heart.style.left = startX + 'px';
+      heart.style.top = startY + 'px';
+
+      const angle = Math.random() * 2 * Math.PI;
+      const distance = Math.random() * 150 + 50;
+      const x = Math.cos(angle) * distance + 'px';
+      const y = Math.sin(angle) * distance + 'px';
+
+      heart.style.setProperty('--x', x);
+      heart.style.setProperty('--y', y);
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 2000);
+    }
+  }
+
+  window.onload = () => {
+    createBalloons(100);
+    createConfetti();
+    createHeartsBurst(1000);
+  };
+</script>
+
+<!-- The white celebration box -->
+<div class="white-box">
+  <div class="box-text">😊Yess!! I am lucky to have you in my life. My heart is always calling your name❤️😊.</div>
+  <a href="more love.html" class="link-button">👉More Love ahead</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Surprise Webpage</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ffccd5, #ffe6f0);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    position: relative;
+  }
+
+  /* Centered text */
+  .message {
+    position: relative;
+    font-size: 24px;
+    color: #333;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px 40px;
+    border-radius: 10px;
+    z-index: 1;
+  }
+
+  /* Button styles */
+  .yes-button {
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 16px;
+    background-color: #ff69b4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none; /* for <a> style */
+    z-index: 1;
+  }
+
+  .yes-button:hover {
+    background-color: #ff85c1;
+  }
+
+  /* Heart styles */
+  .heart {
+    position: absolute;
+    top: -50px;
+    font-size: 24px;
+    color: pink;
+    opacity: 0.8;
+    animation-name: fall;
+    animation-timing-function: linear;
+  }
+
+  @keyframes fall {
+    to {
+      transform: translateY(110vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+  /* White box styles */
+  .white-box {
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Text inside the box */
+  .box-text {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  /* Link styled as button */
+  .link-button {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    background-color: pink;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+
+  .link-button:hover {
+    background-color: #ff69b4;
+  }
+</style>
+</head>
+<body>
+<!-- Heart animation generator (same as previous page) -->
+<script>
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.innerHTML = '♥';
+
+    // Random horizontal position
+    heart.style.left = Math.random() * 100 + 'vw';
+
+    // Random size
+    const size = Math.random() * 10 + 20; // 20px to 30px
+    heart.style.fontSize = size + 'px';
+
+    // Random animation duration
+    const duration = Math.random() * 5 + 5; // 5s to 10s
+    heart.style.animationDuration = duration + 's';
+
+    // Random delay
+    const delay = Math.random() * 2; // up to 2s
+    heart.style.animationDelay = delay + 's';
+
+    document.body.appendChild(heart);
+
+    // Remove after animation
+    setTimeout(() => {
+      heart.remove();
+    }, (duration + 1) * 1000);
+  }
+
+  // Generate hearts continuously
+  setInterval(createHeart, 300);
+  // Generate initial hearts
+  for (let i = 0; i < 10; i++) {
+    createHeart();
+  }
+</script>
+
+<!-- White box with text, emojis, and link button -->
+<div class="white-box">
+  <div class="box-text">Are you ready for Surprise??</div>
+  <a href="Surprise.html" class="link-button">👉 ❤️Yes</a>
+</div>
+
+
+</body>
+</html>
